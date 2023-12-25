@@ -14,7 +14,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  * calculateHanoi(9, 4308) => { turns: 511, seconds: 427 }
  *
  */
-function calculateHanoi(disksNumber, turnsSpeed) {
+function calculateHanoi(disksNumber, turnsSpeed) {// решаем по формуле 2 n − 1 
   const totalTurns = Math.pow(2, disksNumber) - 1 //общее колличество перекладываний
   const seconds = totalTurns / (turnsSpeed / 3600); //время в секундах
 
