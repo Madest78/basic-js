@@ -23,9 +23,37 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  const rows = matrix.length; //высота матрицы
+  const cols = matrix[0].length;//ширина матрицы
+  const result = [];
+
+  for (let i = 0; i < rows; i++) { //создаем матриуц с нулями
+    result.push(new Array(cols).fill(0));
+  }
+
+  const hasMine = (row,col) => {
+    return (row >= 0 && row < rows && col >= 0 && col < cols && matrix[row][col]);
+  };
+
+  for (let i = 0; i < rows; i++) { // перебираем ячейки матрицы
+    for (let j = 0; j < cols; j++) {
+      if (!matrix[i][j]) { //если текущая ячейка не содержит мину
+        for (let r = -1; r <= 1; r++) {
+          for (let c = -1; c <= 1; c++) {
+            if (r !== 0 || c !== 0) {// исключаем текущую ячейку
+              if (hasMine(i + r, j + c)) {
+                result[i][j]++; //если соседняя ячейка содержит мину - увеличиваем счетчик.
+              }
+            }
+          }
+        }
+      } else {
+        result[i][j] = 1; //если есть мина устанавливаем 1
+      }
+    }
+    return result;
+  }
 }
 
 module.exports = {
